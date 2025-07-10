@@ -1,0 +1,22 @@
+<h1>Admin Allocation Summary Report</h1>
+
+<table border="1" cellpadding="10">
+  <thead>
+    <tr>
+      <th>Project Name</th>
+      <th>Total Budget Required (Rs)</th>
+      <th>Total Allocated (Rs)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td><%= project.amount %></td>
+        <td><%= project.total_allocated %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to Projects", projects_path %>

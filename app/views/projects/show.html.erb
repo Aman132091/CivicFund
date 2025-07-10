@@ -1,0 +1,16 @@
+<h1><%= @project.name %></h1>
+<p><%= @project.description %></p>
+<p>Amount: Rs <%= @project.amount %></p>
+<p>Status: <%= @project.status %></p>
+
+<%= link_to "Allocate Budget", new_project_budget_path(@project) %>
+
+<br>
+<%= link_to "Back to Projects", projects_path %>
+
+<h2>Allocated Budgets:</h2>
+<ul>
+  <% @project.budgets.each do |budget| %>
+    <li>Amount: ₹<%= budget.amount %> — Status: <%= budget.status %></li>
+  <% end %>
+</ul>

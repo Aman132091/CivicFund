@@ -1,0 +1,46 @@
+<h1>Allocate Budget for <%= @project.name %></h1>
+
+<%= form_with model: [@project, @allocation], local: true do |form| %>
+  <% if @allocation.errors.any? %>
+    <div>
+      <h2><%= pluralize(@allocation.errors.count, "error") %> prevented this allocation:</h2>
+      <ul>
+        <% @allocation.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :amount %><br>
+    <%= form.number_field :amount, id: "amount_input" %>
+  </div>
+
+  <div>
+    Remaining Budget: <span id="remaining_budget">1000</span>
+  </div>
+
+  <div>
+    <%= form.submit "Allocate" %>
+  </div>
+<% end %>
+
+<%= link_to "Back", projects_path %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("amount_input");
+    const remaining = document.getElementById("remaining_budget");
+    const totalAllocated = <%= current_user.budgets.sum(:amount) %>;
+
+    // Initial remaining budget display
+    remaining.textContent = 1000 - totalAllocated;
+
+    input.addEventListener("input", () => {
+      const entered = parseInt(input.value) || 0;
+      const remainingValue = 1000 - totalAllocated - entered;
+      remaining.textContent = remainingValue >= 0 ? remainingValue : 0;
+    });
+  });
+</script>

@@ -1,0 +1,32 @@
+<h1>Admin Reports</h1>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Total Allocated</th>
+      <th>Allocations (User & Amount)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td>Rs <%= project.budgets.sum(:amount) %></td>
+        <td>
+          <% if project.budgets.any? %>
+            <ul>
+              <% project.budgets.each do |budget| %>
+                <li><%= budget.user.email %> — Rs <%= budget.amount %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            No Allocations
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to Projects", projects_path %>

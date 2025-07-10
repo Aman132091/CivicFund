@@ -1,0 +1,13 @@
+<h1>All Budgets</h1>
+
+<ul>
+  <% @budgets.each do |budget| %>
+    <li>
+      <strong>Project:</strong> <%= budget.project.name %> — 
+      <strong>Amount:</strong> ₹<%= budget.amount %> — 
+      <strong>Status:</strong> <%= budget.status %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Budget", new_budget_path %>
